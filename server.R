@@ -28,7 +28,8 @@ shinyServer(function(input, output, session) {
   updateSelectInput(session = session,
                     inputId = 'dimension_selections',
                     choices = dimensions$dimension_name)
-    
+  
+  segment <-  callModule(segmentBuilder, 'test')
   
   
   ga_data <- eventReactive(input$update, {
@@ -37,7 +38,7 @@ shinyServer(function(input, output, session) {
                                 date_range = c(input$date_range[1], input$date_range[2]), 
                                 metrics = input$metric_selections,
                                 dimensions = input$dimension_selections,
-                                anti_sample = TRUE)
+                                anti_sample = TRUE, segments = segment())
   })
   
   output$ga_table <- renderDataTable({ga_data()})

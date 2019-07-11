@@ -15,11 +15,13 @@ shinyUI(function(input, output, session) {
     
     dashboardBody(
       
+      segmentBuilderUI(id = 'test'),
+      
       fluidRow(
         
-        actionButton(inputId = 'update', label = 'Get Data'),
-        
         box(
+          
+            actionButton(inputId = 'update', label = 'Fetch Data'),
           
             selectInput(inputId =  'metric_selections',
                         label = 'Metrics',
@@ -36,9 +38,10 @@ shinyUI(function(input, output, session) {
           sliderInput(inputId = 'date_range',
                       label = 'Date range',
                       min = as.Date('2019-06-01'),
-                      max = today(), value = c(as.Date('2019-06-01'), today())))
+                      max = today(), value = c(as.Date('2019-06-01'), today()))
+          
         
-      ),
+      )),
       
       fluidRow(
         
@@ -47,6 +50,7 @@ shinyUI(function(input, output, session) {
           DT::dataTableOutput(outputId = 'ga_table'), width = 12
         )
       )
+        
     )
   )
   
