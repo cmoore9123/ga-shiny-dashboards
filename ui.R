@@ -19,11 +19,24 @@ shinyUI(function(input, output, session) {
         
         actionButton(inputId = 'update', label = 'Get Data'),
         
-        box(sliderInput(inputId = 'date_range',
-                        label = 'Date range',
-                        min = as.Date('2019-06-01'),
-                        max = today(), value = c(as.Date('2019-06-01'), today())))
+        box(
+          
+            selectInput(inputId =  'metric_selections',
+                        label = 'Metrics',
+                        choices = 'metric_selections',
+                        multiple = TRUE),
+            
+            selectInput(inputId =  'dimension_selections',
+                        label = 'Dimensions',
+                        choices = 'dimension_selections',
+                        multiple = TRUE)),
         
+        box(
+          
+          sliderInput(inputId = 'date_range',
+                      label = 'Date range',
+                      min = as.Date('2019-06-01'),
+                      max = today(), value = c(as.Date('2019-06-01'), today())))
         
       ),
       
@@ -31,7 +44,7 @@ shinyUI(function(input, output, session) {
         
         box(
           
-          DT::dataTableOutput(outputId = 'ga_table')
+          DT::dataTableOutput(outputId = 'ga_table'), width = 12
         )
       )
     )
